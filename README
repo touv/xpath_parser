@@ -1,0 +1,36 @@
+XPath_Parser for PHP
+====================
+:Author:    Nicolas Thouvenin
+:Homepage:  http://github.com/touv/xpath_parser
+:Email:     nthouvenin@gmail.com
+:Key words: php, xpath
+:language:  php
+
+
+Description 
+-----------
+
+It's a PHP Class that can transform a xpath string to a structured array.
+
+
+License
+-------
+
+AIT is licensed under the LGPL version 2. For more information, see the attached COPYING file.
+
+
+Downloading
+------------
+
+XPath_Parser is currently hosted at GitHub. It's source code can be found at
+http://github.com/touv/xpath_parser. PEAR's package can be found at http://pear.pxxo.net/get/
+
+You can also use the Pear's Installer :
+
+......................................
+$ pear channel-discover pear.pxxo.net
+$ pear install pxxo/xpath_parser
+......................................
+
+
+// vim: set syntax=asciidoc encoding=utf8 spl=fr:
