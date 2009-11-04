@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+	<name>XPath_Parser</name>
+	<channel>pear.pxxo.net</channel>
+	<summary>It's a PHP Class that can transform a xpath string to a structured array</summary>
+	<description>
+		http://github.com/touv/xpath_parser/tree/master
+	</description>
+	<lead>
+		<name>Nicolas Thouvenin</name>
+		<user>touv</user>
+		<email>nthouvenin@gmail.com</email>
+		<active>yes</active>
+	</lead>
+	<date>2009-11-03</date>
+	<version>
+		<release>1.0.0</release>
+		<api>1.0</api>
+	</version>
+	<stability>
+		<release>stable</release>
+		<api>stable</api>
+	</stability>
+	<license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+	<notes>
+        First release 
+	</notes>
+	<contents>
+		<dir name="/">
+			<dir name="XPath">
+				<file name="Parser.php" role="php" />
+				<file name="ParserTest.php" role="test" />
+			</dir>
+		</dir>
+	</contents>
+	<dependencies>
+		<required>
+			<php>
+				<min>5.1.0</min>
+			</php>
+			<pearinstaller>
+				<min>1.4.0b1</min>
+			</pearinstaller>
+		</required>
+		<optional />
+	</dependencies>
+	<phprelease />
+	<changelog />
+</package>
