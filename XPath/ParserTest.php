@@ -647,7 +647,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
     function _t($a, $d)
     {
         $b = new XPath_Parser($a);
-        $c = current($b->getAST());
+        $c = current($b->getArray());
         $this->assertEquals($d, $c);
     }
 }

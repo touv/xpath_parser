@@ -31,8 +31,6 @@
  * @link      http://www.touv.fr/
  */
 
-
-
 /**
  * Classe Permettant
  *
@@ -68,7 +66,7 @@ class XPath_Parser
         $this->nextChar = isset($this->buffer[$this->pointer+1]) ? $this->buffer[$this->pointer+1] : '';
         $this->currentString = substr($this->buffer, $this->pointer);
     }
-    public function getAST()
+    public function getArray()
     {
         $ret = array();
         $this->location($ret);
@@ -116,7 +114,7 @@ class XPath_Parser
     }
     protected function position(array &$ret)
     {
-        if (preg_match(',^\s*\[([0-9]+)\],',$this->currentString, $m)) { // or [position()=1]
+        if (preg_match(',^\s*\[([0-9]+)\],',$this->currentString, $m)) { // TODO or [position()=1]
             $this->forward(strlen($m[0]));
             $ret['position'] = $m[1];
             return true;
@@ -200,9 +198,4 @@ class XPath_Parser
         }
         else return null;
     }
-
-
 }
-
-
-
