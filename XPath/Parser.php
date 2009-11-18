@@ -47,6 +47,8 @@ class XPath_Parser
     protected $currentChar;
     protected $nextChar;
     protected $currentString;
+    protected $outputArray;
+    protected $outputTree;
 
     /**
      * Constructeur
@@ -68,9 +70,55 @@ class XPath_Parser
     }
     public function getArray()
     {
-        $ret = array();
-        $this->location($ret);
-        return $ret;
+        if (is_null($this->outputArray)) {
+            $this->outputArray = array();
+            $this->location($this->outputArray);
+        }
+        return $this->outputArray;
+    }
+    public function getTree()
+    {
+        if (is_null($this->outputTree)) {
+            $a = $this->getArray();
+            $node = new stdClass;
+            $node->depth = 0;
+            $this->_scan($a['location'], $node);
+            $this->outputTree = isset($node->childs) ? current($node->childs) : null;
+        }
+        return $this->outputTree;
+    }
+    private function _scan(array $a, $r) 
+    {
+        $previous = $r;
+        foreach($a as $n) {
+
+            $node = new stdClass;
+            $node->localName = $n['localName'];
+            $node->nodeType = $n['axis'] === 'attribute' ? XMLReader::ATTRIBUTE : XMLReader::ELEMENT; 
+            if ($n['axis'] !== 'descendant-or-self') {
+                if(!isset($previous->depth))
+                    $previous->depth = 0;
+                $node->depth = $n['axis'] === 'attribute'  ? $previous->depth : ($previous->depth+1);
+            }
+            else 
+                $node->mindepth = $previous->depth+1;
+            if(!isset($previous->childs))
+                $previous->childs = new ArrayObject();
+            $previous->childs->append($node);
+            $previous = $node;
+            if (isset($n['condition'])) {
+                foreach($n['condition'] as $c) {
+                    $p = $this->_scan($c['location'], $node);
+                    if (isset($c['literal'])) 
+                        $p->value = $c['literal'];
+                    if (isset($c['operator'])) 
+                        $p->operator = $c['operator'];
+                    if (isset($c['logical'])) 
+                        $p->logical = $c['logical'];
+                }                        
+            }
+        }
+        return $previous;
     }
     protected function location(array &$ret)
     {
