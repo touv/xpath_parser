@@ -68,6 +68,11 @@ class XPath_Parser
         $this->nextChar = isset($this->buffer[$this->pointer+1]) ? $this->buffer[$this->pointer+1] : '';
         $this->currentString = substr($this->buffer, $this->pointer);
     }
+    public function getLocalization()
+    {
+        $a = $this->getArray();
+        return '/'.$this->_scan2($a['location']);
+    }
     public function getArray()
     {
         if (is_null($this->outputArray)) {
@@ -82,25 +87,25 @@ class XPath_Parser
             $a = $this->getArray();
             $node = new stdClass;
             $node->depth = 0;
-            $this->_scan($a['location'], $node);
+            $this->_scan1($a['location'], $node);
             $this->outputTree = isset($node->childs) ? current($node->childs) : null;
         }
         return $this->outputTree;
     }
-    private function _scan(array $a, $r) 
+    private function _scan1(array $a, $r)
     {
         $previous = $r;
         foreach($a as $n) {
 
             $node = new stdClass;
             $node->localName = $n['localName'];
-            $node->nodeType = $n['axis'] === 'attribute' ? XMLReader::ATTRIBUTE : XMLReader::ELEMENT; 
+            $node->nodeType = $n['axis'] === 'attribute' ? XMLReader::ATTRIBUTE : XMLReader::ELEMENT;
             if ($n['axis'] !== 'descendant-or-self') {
                 if(!isset($previous->depth))
                     $previous->depth = 0;
                 $node->depth = $n['axis'] === 'attribute'  ? $previous->depth : ($previous->depth+1);
             }
-            else 
+            else
                 $node->mindepth = $previous->depth+1;
             if(!isset($previous->childs))
                 $previous->childs = new ArrayObject();
@@ -108,18 +113,59 @@ class XPath_Parser
             $previous = $node;
             if (isset($n['condition'])) {
                 foreach($n['condition'] as $c) {
-                    $p = $this->_scan($c['location'], $node);
-                    if (isset($c['literal'])) 
+                    $p = $this->_scan1($c['location'], $node);
+                    if (isset($c['literal']))
                         $p->value = $c['literal'];
-                    if (isset($c['operator'])) 
+                    if (isset($c['operator']))
                         $p->operator = $c['operator'];
-                    if (isset($c['logical'])) 
+                    if (isset($c['logical']))
                         $p->logical = $c['logical'];
-                }                        
+                }
             }
         }
         return $previous;
     }
+     private function _scan2(array $a)
+     {
+         $loc = '';
+         foreach($a as $n) {
+             $loc .= $n['axis'].'::';
+             $loc .= $n['localName'];
+             if (isset($n['position'])) {
+                 $loc .= '[position()='.$n['position'].']';
+             }
+
+             if (isset($n['condition'])) {
+                 $loc .= '[';
+                 $ope = null;
+                 foreach($n['condition'] as $k => $c) {
+                     if ($k > 0 and isset($c['logical'])) {
+                         $loc .= ' '.$c['logical'].' ';
+                     }
+                     if ($k == 0 and isset($c['logical'])) {
+                         $ope = $c['logical'];
+                     }
+                     elseif ($k > 0 and is_null($ope)) {
+                         $loc .= ' and ';
+                     }
+                     elseif ($k > 0 and !is_null($ope)) {
+                         $loc .= ' '.$ope.' ';
+                         $ope = null;
+                     }
+
+                     $loc .= $this->_scan2($c['location']);
+                     if (isset($c['operator']))
+                         $loc .=  ' '.$c['operator'].' ';
+                     if (isset($c['literal']))
+                         $loc .=  '\''.addcslashes($c['literal'], "'").'\'';
+                 }
+                 $loc .= ']';
+             }
+             $loc .= '/';
+        }
+        return rtrim($loc, '/');
+    }
+
     protected function location(array &$ret)
     {
         $ret['location'] = array();

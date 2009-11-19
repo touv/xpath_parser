@@ -11,13 +11,15 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
     function test_01()
     {
         $this->_t(
-            '/a', 
+            '/a',
             array(
                 array (
                     'axis' => 'child',
                     'localName' => 'a',
                 )
             )
+            ,
+            '/child::a'
         );
     }
     function test_02()
@@ -28,7 +30,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'a',
                 )
-            )
+            ),
+            '/child::a'
         );
     }
     function test_03()
@@ -43,7 +46,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'b',
                 )
-            )
+            ),
+            '/child::a/child::b'
         );
     }
     function test_04()
@@ -58,7 +62,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'b',
                 )
-            )
+            ),
+            '/child::a/child::b'
         );
     }
     function test_05()
@@ -73,7 +78,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'b',
                 )
-            )
+            ),
+            '/child::a/child::b'
         );
     }
     function test_06()
@@ -92,7 +98,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'c',
                 )
-            )
+            ),
+            '/child::a/child::b/child::c'
         );
     }
     function test_07()
@@ -107,7 +114,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'attribute',
                     'localName' => 'b',
                 )
-            )
+            ),
+            '/child::a/attribute::b'
         );
     }
     function test_08()
@@ -122,7 +130,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'attribute',
                     'localName' => 'b',
                 )
-            )
+            ),
+            '/child::a/attribute::b'
         );
     }
     function test_09()
@@ -141,7 +150,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'attribute',
                     'localName' => 'c',
                 )
-            )
+            ),
+            '/child::a/child::b/attribute::c'
         );
     }
     function test_10()
@@ -160,7 +170,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'attribute',
                     'localName' => 'c',
                 )
-            )
+            ),
+            '/child::a/child::b/attribute::c'
         );
     }
     function test_11()
@@ -172,7 +183,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'a',
                     'position' => '1',
                 ),
-            )
+            ),
+            '/child::a[position()=1]'
         );
     }
     function test_12()
@@ -184,7 +196,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'a',
                     'position' => '1',
                 ),
-            )
+            ),
+            '/child::a[position()=1]'
         );
     }
     function test_13()
@@ -200,7 +213,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'attribute',
                     'localName' => 'b',
                 ),
-            )
+            ),
+            '/child::a[position()=1]/attribute::b'
         );
     }
     function test_14()
@@ -216,7 +230,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'b',
                 )
-            )
+            ),
+            '/child::a[position()=1]/child::b'
         );
     }
     function test_15()
@@ -233,7 +248,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'b',
                     'position' => '2',
                 )
-            )
+            ),
+            '/child::a[position()=1]/child::b[position()=2]'
         );
     }
     function test_16()
@@ -255,7 +271,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'c',
                     'position' => '3',
                 )
-            )
+            ),
+            '/child::a[position()=1]/child::b[position()=2]/child::c[position()=3]'
         );
     }
     function test_17()
@@ -271,7 +288,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'child',
                     'localName' => 'b',
                 ),
-            )
+            ),
+            '/child::a[position()=1]/child::b'
         );
     }
     function test_18()
@@ -287,7 +305,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'b',
                     'position' => '1',
                 ),
-            )
+            ),
+            '/child::a/child::b[position()=1]'
         );
     }
     function test_19()
@@ -304,7 +323,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'b',
                     'position' => '2',
                 ),
-            )
+            ),
+            '/child::a[position()=1]/child::b[position()=2]'
         );
     }
     function test_20()
@@ -328,7 +348,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[position()=1][attribute::a = \'b\']'
         );
     }
     function test_21()
@@ -352,7 +373,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            "/child::a[position()=1][attribute::a = '\'']"
         );
     }
     function test_22()
@@ -376,7 +398,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[position()=1][attribute::a = \'"\']'
         );
     }
     function test_23()
@@ -399,7 +422,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[attribute::a = \'a\']'
         );
     }
     function test_24()
@@ -433,7 +457,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[attribute::a = \'a\' or attribute::b = \'b\']'
         );
     }
     function test_25()
@@ -467,12 +492,13 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[attribute::a = \'a\' and attribute::b = \'b\']'
         );
     }
     function test_26()
     {
-        $this->_t("/a[@a='a'][@b='b']/",
+        $this->_t("/a[@a='a'][@b='b']",
             array(
                 array (
                     'axis' => 'child',
@@ -500,7 +526,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[attribute::a = \'a\' and attribute::b = \'b\']'
         );
     }
     function test_27()
@@ -533,7 +560,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
+            '/child::a[attribute::b = \'2\' and child::c = \'3\']'
         );
     }
     function test_28()
@@ -548,12 +576,14 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'axis' => 'descendant-or-self',
                     'localName' => 'b',
                 ),
-            )
+            ),
+            '/child::a/descendant-or-self::b'
         );
     }
     function test_29()
     {
         $this->_t("/a[@b='1']/c[@b='2' and child::e='3']//d[@b='4']",
+            
             array(
                 array (
                     'axis' => 'child',
@@ -613,7 +643,8 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         )
                     ),
                 ),
-            )
+            ),
+            '/child::a[attribute::b = \'1\']/child::c[attribute::b = \'2\' and child::e = \'3\']/descendant-or-self::d[attribute::b = \'4\']'
         );
     }
     function test_30()
@@ -640,14 +671,19 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                         )
                     )
                 )
-            )
+            ),
+            '/child::a[child::b/child::c = \'3\']'
         );
     }
 
-    function _t($a, $d)
+    function _t($a, $d, $l = null)
     {
         $b = new XPath_Parser($a);
         $c = current($b->getArray());
         $this->assertEquals($d, $c);
+        $e = $b->getLocalization();
+
+        if ($l != '')
+            $this->assertEquals($l, $e);
     }
 }
