@@ -86,7 +86,7 @@ class XPath_Parser
         if (is_null($this->outputTree)) {
             $a = $this->getArray();
             $node = new stdClass;
-            $node->depth = 0;
+            $node->depth = -1;
             $this->_scan1($a['location'], $node);
             $this->outputTree = isset($node->childs) ? current($node->childs) : null;
         }
