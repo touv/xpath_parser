@@ -99,6 +99,8 @@ class XPath_Parser
 
             $node = new stdClass;
             $node->localName = $n['localName'];
+            if(isset($n['position']))
+                $node->position = $n['position'];
             $node->nodeType = $n['axis'] === 'attribute' ? XMLReader::ATTRIBUTE : XMLReader::ELEMENT;
             if ($n['axis'] !== 'descendant-or-self') {
                 if(!isset($previous->depth))
