@@ -12,9 +12,9 @@
 		<email>nthouvenin@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2009-11-19</date>
+	<date>2009-12-10</date>
 	<version>
-		<release>1.2.0</release>
+		<release>1.2.1</release>
 		<api>1.2</api>
 	</version>
 	<stability>
@@ -23,7 +23,7 @@
 	</stability>
 	<license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
 	<notes>
-        adding method : getLocalization
+        bug fix
 	</notes>
 	<contents>
 		<dir name="/">
