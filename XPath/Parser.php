@@ -85,47 +85,52 @@ class XPath_Parser
     {
         if (is_null($this->outputTree)) {
             $a = $this->getArray();
-            $node = new stdClass;
-            $node->depth = -1;
-            $this->_scan1($a['location'], $node);
-            $this->outputTree = isset($node->childs) ? current($node->childs) : null;
+            $n = new stdClass;
+            $n->depth = -1;
+            $this->_scan1($a['location'], $n);            
+            $this->outputTree = $n->trunk;
         }
         return $this->outputTree;
     }
-    private function _scan1(array $a, $r)
+    private function _scan1(array $a, $z = null)
     {
-        $previous = $r;
+        $previous = $z;
         foreach($a as $n) {
-
             $node = new stdClass;
             $node->localName = $n['localName'];
-            if(isset($n['position']))
-                $node->position = $n['position'];
             $node->nodeType = $n['axis'] === 'attribute' ? XMLReader::ATTRIBUTE : XMLReader::ELEMENT;
             if ($n['axis'] !== 'descendant-or-self') {
-                if(!isset($previous->depth))
-                    $previous->depth = 0;
                 $node->depth = $n['axis'] === 'attribute'  ? $previous->depth : ($previous->depth+1);
             }
-            else
+            else {
                 $node->mindepth = $previous->depth+1;
-            if(!isset($previous->childs))
-                $previous->childs = new ArrayObject();
-            $previous->childs->append($node);
-            $previous = $node;
+            }
+
+            if(isset($n['position']))
+                $node->position = $n['position'];
+
+
             if (isset($n['condition'])) {
+                $node->branchs = array();
                 foreach($n['condition'] as $c) {
-                    $p = $this->_scan1($c['location'], $node);
+                    $x = new stdClass;
+                    $x->depth = $node->depth;
+                    $p = $this->_scan1($c['location'], $x);
                     if (isset($c['literal']))
                         $p->value = $c['literal'];
                     if (isset($c['operator']))
                         $p->operator = $c['operator'];
                     if (isset($c['logical']))
                         $p->logical = $c['logical'];
+                    $node->branchs[] = $x->trunk;
                 }
             }
+            if (!is_null($previous)) {
+                $previous->trunk = $node;
+            }
+            $previous = $node;
         }
-        return $previous;
+        return $node;
     }
      private function _scan2(array $a)
      {
