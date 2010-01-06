@@ -184,7 +184,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'position' => '1',
                 ),
             ),
-            '/child::a[position()=1]'
+            '/child::a[1]'
         );
     }
     function test_12()
@@ -197,7 +197,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'position' => '1',
                 ),
             ),
-            '/child::a[position()=1]'
+            '/child::a[1]'
         );
     }
     function test_13()
@@ -214,7 +214,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'b',
                 ),
             ),
-            '/child::a[position()=1]/attribute::b'
+            '/child::a[1]/attribute::b'
         );
     }
     function test_14()
@@ -231,7 +231,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'b',
                 )
             ),
-            '/child::a[position()=1]/child::b'
+            '/child::a[1]/child::b'
         );
     }
     function test_15()
@@ -249,7 +249,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'position' => '2',
                 )
             ),
-            '/child::a[position()=1]/child::b[position()=2]'
+            '/child::a[1]/child::b[2]'
         );
     }
     function test_16()
@@ -272,7 +272,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'position' => '3',
                 )
             ),
-            '/child::a[position()=1]/child::b[position()=2]/child::c[position()=3]'
+            '/child::a[1]/child::b[2]/child::c[3]'
         );
     }
     function test_17()
@@ -289,7 +289,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'localName' => 'b',
                 ),
             ),
-            '/child::a[position()=1]/child::b'
+            '/child::a[1]/child::b'
         );
     }
     function test_18()
@@ -306,7 +306,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'position' => '1',
                 ),
             ),
-            '/child::a/child::b[position()=1]'
+            '/child::a/child::b[1]'
         );
     }
     function test_19()
@@ -324,7 +324,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     'position' => '2',
                 ),
             ),
-            '/child::a[position()=1]/child::b[position()=2]'
+            '/child::a[1]/child::b[2]'
         );
     }
     function test_20()
@@ -349,7 +349,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            '/child::a[position()=1][attribute::a = \'b\']'
+            '/child::a[1][attribute::a = \'b\']'
         );
     }
     function test_21()
@@ -374,7 +374,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            "/child::a[position()=1][attribute::a = '\'']"
+            "/child::a[1][attribute::a = '\'']"
         );
     }
     function test_22()
@@ -399,7 +399,7 @@ class XPath_ParserTest extends PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            '/child::a[position()=1][attribute::a = \'"\']'
+            '/child::a[1][attribute::a = \'"\']'
         );
     }
     function test_23()

@@ -139,7 +139,7 @@ class XPath_Parser
              $loc .= $n['axis'].'::';
              $loc .= $n['localName'];
              if (isset($n['position'])) {
-                 $loc .= '[position()='.$n['position'].']';
+                 $loc .= '['.$n['position'].']';
              }
 
              if (isset($n['condition'])) {

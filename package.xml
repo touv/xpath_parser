@@ -12,9 +12,9 @@
 		<email>nthouvenin@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2009-12-11</date>
+	<date>2010-01-06</date>
 	<version>
-		<release>1.2.2</release>
+		<release>1.2.3</release>
 		<api>1.2</api>
 	</version>
 	<stability>
@@ -22,8 +22,8 @@
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-	<notes>
-        best tree
+    <notes>
+        drop position()= 
 	</notes>
 	<contents>
 		<dir name="/">
